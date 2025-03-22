@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  nextjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - GEMINI_API_KEY=AIzaSyCnhI6OXDDCRUdbERW_7k8mjSVmpx6VvaM  # ✅ Removed quotes
+    restart: unless-stopped  # ✅ Keep unless-stopped or change based on your needs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]  # ✅ Changed wget → curl
+      interval: 30s
+      timeout: 10s
+      retries: 3
